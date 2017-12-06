@@ -1,17 +1,30 @@
 {% extends 'base.html' %}
 {% block page_content %}
   <div class="center-wrapper">
-    {% for choice in poll.choices %}
-      <div class="">
-        <h3>{{ choice.value }}</h3>
-      </div>
-    {% endfor %}
+    <div id="choice_list">
+      {% for choice in poll.choices %}
+        <div class="choice">
+          <span>{{ choice.value }}</span>
+        </div>
+      {% endfor %}
+    </div>
   </div>
-  <script>
-    $(document).ready(function() {
-      $('body').data({
-        final_pick: {{ poll.final_pick }}
-      });
-    });
+  <script type="text/javascript" src="../static/js/poll.js">
   </script>
+  <style>
+    .choice {
+      color: #00000057;
+      border: 0.7px #CCCCCC8a solid;
+    }
+
+    {% set color_list = ['#00695C', '#9575CD', '#FF9800', '#607D8B', '#78909C'] %}
+    {% set text_color = '#FFFFFFDE' %}
+    {% for i in range(poll.final_pick) %}
+      .choice:nth-child({{ i + 1 }}) {
+        background-color: {{ color_list[i] }};
+        color: {{ text_color }};
+        border: none;
+      }
+    {% endfor %}
+  </style>
 {% endblock %}

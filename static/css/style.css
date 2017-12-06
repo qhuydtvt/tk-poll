@@ -129,9 +129,10 @@ ol {
 }
 
 .choice-wrapper {
+  width: 50%;
   display: flex;
+  justify-content: flex-end;
   align-items: center;
-  padding-right: 10px;
 }
 
 .form-choice {
@@ -144,6 +145,7 @@ ol {
   flex-flow: row;
   align-items: center;
   justify-content: flex-end;
+  margin-top: 20px;
 }
 
 #input_new_choice {
@@ -156,4 +158,17 @@ ol {
 
 #input_final_pick_count {
   display: none;
+}
+
+.choice {
+  width: 300px;
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 2px;
+  display: flex;
+}
+
+.choice span {
+  display: inline-block;
+  height: 2.2rem;
 }

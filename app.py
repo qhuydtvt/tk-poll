@@ -19,7 +19,8 @@ def create_poll():
     if request.method == 'GET':
         return render_template("poll_create.html")
     elif request.method == "POST":
-        choice_values = list(value for key, value in request.form.items() if "choice" in key)
+        choice_keys = sorted([key for key, value in request.form.items() if "choice" in key])
+        choice_values = [request.form[choice_key] for choice_key in choice_keys]
         final_pick = request.form['final_pick']
         poll = Poll.create(final_pick)
         poll.save()

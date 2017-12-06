@@ -58,6 +58,7 @@ function addNewChoice(choice) {
     var input = $(event.target);
     if (input.val() == "") {
       input.parent().remove();
+      updateCreateWrapper();
     }
   });
 
