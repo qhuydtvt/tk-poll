@@ -57,6 +57,19 @@ input {
   padding: 9px;
 }
 
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 2px;
+}
+
+select:focus {
+  outline: none;
+}
+
 .input-choice {
 }
 
@@ -65,7 +78,7 @@ ol {
 }
 
 #choice-list-wrapper {
-  min-width: 560px;
+  min-width: 600px;
 }
 
 .item-choice {
@@ -106,11 +119,10 @@ ol {
 #btn-create-poll {
   position: relative;
   align-self: flex-end;
-  margin-top: 30px;
 }
 
 #choice_list_wrapper {
-  width: 540px;
+  width: 600px;
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
@@ -127,10 +139,21 @@ ol {
   flex-flow: column;
 }
 
+#poll-create-wrapper {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
 #input_new_choice {
   border: 0.5px #cccccc00 solid;
 }
 
 #input_new_choice:focus {
   outline: none;
+}
+
+#input_final_pick_count {
+  display: none;
 }

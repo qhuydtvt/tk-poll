@@ -5,10 +5,11 @@ import string
 class Poll(Document):
     code = StringField()
     weighted = BooleanField(default=True)
-    final_pick_count = IntField()
+    final_pick = IntField()
 
     @classmethod
-    def create(cls):
+    def create(cls, final_pick):
         alphabet = string.ascii_uppercase
-        p = Poll(code=ShortUUID(alphabet=alphabet).random(length=6))
+        code = ShortUUID(alphabet=alphabet).random(length=6)
+        p = Poll(code=code, final_pick=final_pick)
         return p

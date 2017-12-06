@@ -17,7 +17,14 @@ $(document).ready(function(){
     }
   });
 
-  updateCreateButton();
+  $('#sel_final_pick_count').change(function(event) {
+    var selectedIndex = event.target.selectedIndex;
+    var options = event.target.options;
+    var selectedOption = options[selectedIndex];
+    updatePickCountInput(selectedOption.text);
+  });
+
+  updateCreateWrapper();
 });
 
 function addNewChoice(choice) {
@@ -35,7 +42,7 @@ function addNewChoice(choice) {
 
   $('.btn-remmove-choice').click(function(event){
     $(event.target).parent().remove();
-    updateCreateButton();
+    updateCreateWrapper();
   });
 
   $('.input-empty-clear').focusout(function(event){
@@ -47,13 +54,19 @@ function addNewChoice(choice) {
 
   $('.input-choice:last').focus();
 
-  updateCreateButton();
+  updateCreateWrapper();
 }
 
-function updateCreateButton() {
+function updateCreateWrapper() {
   if ($('.choice-wrapper').length > 2) {
-    $('#btn-create-poll').show();
+    $('#poll-create-wrapper').show();
   } else {
-    $('#btn-create-poll').hide();
+    $('#poll-create-wrapper').hide();
+  }
+}
+
+function updatePickCountInput(selectedValue) {
+  if (/^\d+$/.test(selectedValue)) {
+    $('#input_final_pick_count').attr('value', selectedValue);
   }
 }

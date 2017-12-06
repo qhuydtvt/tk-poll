@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block page_content %}
+  <div class="center-wrapper">
+    {% for choice in poll.choices %}
+      <div class="">
+        <h3>{{ choice.value }}</h3>
+      </div>
+    {% endfor %}
+  </div>
+  <script>
+    // $(document).ready(function() {
+    //   $(body).data({
+    //     final_pick_count = {{ poll.final_pick_count }};
+    //   });
+    // });
+  </script>
+{% endblock %}
