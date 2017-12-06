@@ -1,31 +1,17 @@
 {% extends 'base.html' %}
 {% block page_content %}
 <div id="choice-list-wrapper" class="center-wrapper">
+  <script type="text/javascript" src="../static/js/create_poll.js">
+  </script>
   <div class="right-align-wrapper">
     <div class="">
-      <input class="input-choice" type="text" name="" value="" placeholder="Enter new option">
-      <span class="text-green choice-action">
-        <i class="fa fa-plus pointer" aria-hidden="true"></i>
-      </span>
+      <input id="input_new_choice" class="input-choice" type="text" name="" value="" placeholder="Enter new option">
+      <i id="btn_add_choice" class="text-green choice-action fa fa-plus pointer" aria-hidden="true"></i>
     </div>
     <form class="" action="" method="post">
-      <ol>
-        <li class="item-choice">
-          <input class="input-choice" type="text" name="" value="">
-          <span class="text-red choice-action">
-            <i class="fa fa-minus pointer" aria-hidden="true"></i>
-          </span>
-        </li>
-        <li class="item-choice">
-          <div class="">
-            <input class="input-choice" type="text" name="" value="">
-            <span class="text-red choice-action">
-              <i class="fa fa-minus pointer" aria-hidden="true"></i>
-            </span>
-          </div>
-        </li>
+      <ol id="choice_list">
       </ol>
-      <button class="btn bg-blue text-white" id="btn-create-poll" name="button">Create</button>
+      <button class="btn bg-blue text-white" id="btn-create-poll">Create</button>
     </form>
   </div>
 </div>

@@ -68,6 +68,10 @@ ol {
   min-width: 320px;
 }
 
+.item-choice {
+  opacity: 0;
+}
+
 .choice-action {
   padding: 8px;
   margin: 10px;
