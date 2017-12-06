@@ -21,6 +21,9 @@ $(document).ready(function(){
 });
 
 function addNewChoice(choice) {
+  if (!choice) {
+    return;
+  }
   var newChoice = $(`
     <div class="choice-wrapper">
       <input class="input-choice input-empty-clear" type="text" name="choice_${currentChoiceIndex++}" value="${choice}">
