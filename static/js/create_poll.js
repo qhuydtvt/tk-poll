@@ -24,7 +24,7 @@ function addNewChoice(choice) {
   var newChoice = $(`
     <div class="choice-wrapper">
       <input class="input-choice input-empty-clear" type="text" name="choice_${currentChoiceIndex++}" value="${choice}">
-      <i class="fa fa-minus text-red choice-action pointer btn-remmove-choice" aria-hidden="true"></i>
+      <i class="fa fa-times text-red choice-action pointer btn-remmove-choice" aria-hidden="true"></i>
     </div>
   `);
 
