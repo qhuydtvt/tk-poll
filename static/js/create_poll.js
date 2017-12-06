@@ -1,4 +1,4 @@
-var currentChoiceIndex = 1;
+var currentChoiceCount = 1;
 
 $(document).ready(function(){
   $('#btn_add_choice').click(function(event) {
@@ -34,6 +34,7 @@ $(document).ready(function(){
   });
 
   updateCreateWrapper();
+  updateFinalPick();
 });
 
 function addNewChoice(choice) {
@@ -42,7 +43,7 @@ function addNewChoice(choice) {
   }
   var newChoice = $(`
     <div class="choice-wrapper">
-      <input class="input-choice input-empty-clear" type="text" name="choice_${currentChoiceIndex++}" value="${choice}">
+      <input class="input-choice input-empty-clear" type="text" name="choice_${currentChoiceCount++}" value="${choice}">
       <i class="fa fa-times text-red choice-action pointer btn-remmove-choice" aria-hidden="true"></i>
     </div>
   `);
@@ -52,6 +53,7 @@ function addNewChoice(choice) {
   $('.btn-remmove-choice').click(function(event){
     $(event.target).parent().remove();
     updateCreateWrapper();
+    updateFinalPick();
   });
 
   $('.input-empty-clear').focusout(function(event){
@@ -59,12 +61,14 @@ function addNewChoice(choice) {
     if (input.val() == "") {
       input.parent().remove();
       updateCreateWrapper();
+      updateFinalPick();
     }
   });
 
   $('.input-choice:last').focus();
 
   updateCreateWrapper();
+  updateFinalPick();
 }
 
 function updateCreateWrapper() {
@@ -72,6 +76,14 @@ function updateCreateWrapper() {
     $('#poll-create-wrapper').show();
   } else {
     $('#poll-create-wrapper').hide();
+  }
+}
+
+function updateFinalPick() {
+  $('#sel_final_pick_count').empty();
+  $('#sel_final_pick_count').append($("<option>-- Final pick --</option>"));
+  for(var selection = 1; selection < currentChoiceCount - 1; selection++) {
+    $('#sel_final_pick_count').append(`<option>${selection}</option>`);
   }
 }
 
