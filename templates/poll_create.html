@@ -3,14 +3,19 @@
 <div id="choice-list-wrapper" class="center-wrapper">
   <script type="text/javascript" src="../static/js/create_poll.js">
   </script>
-  <div class="right-align-wrapper">
-    <div class="">
-      <input id="input_new_choice" class="input-choice" type="text" name="" value="" placeholder="Enter new option">
-      <i id="btn_add_choice" class="text-green choice-action fa fa-plus pointer" aria-hidden="true"></i>
-    </div>
-    <form class="" action="" method="post">
-      <ol id="choice_list">
-      </ol>
+  <div class="">
+
+    <form class="form-choice" action="" method="post">
+      <div id="choice_list_wrapper">
+        <!-- <div class="choice_wrapper">
+          <input id="input_new_choice" class="input-choice" type="text" name="" value="" placeholder="Enter new option">
+          <i id="btn_add_choice" class="text-green choice-action fa fa-plus pointer" aria-hidden="true"></i>
+        </div> -->
+        <div class="choice-wrapper">
+          <input autocomplete="off" id="input_new_choice" class="input-choice" type="text">
+          <i id="btn_add_choice" class="fa fa-plus pointer text-green choice-action" aria-hidden="true"></i>
+        </div>
+      </div>
       <button class="btn bg-blue text-white" id="btn-create-poll">Create</button>
     </form>
   </div>

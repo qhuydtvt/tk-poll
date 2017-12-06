@@ -69,12 +69,11 @@ ol {
 }
 
 .item-choice {
-  opacity: 0;
 }
 
 .choice-action {
   padding: 8px;
-  margin: 10px;
+  margin: 10px 10px 10px 2px;
   display: inline-block;
   font-size: 1.2rem;
   text-align: left;
@@ -106,5 +105,26 @@ ol {
 
 #btn-create-poll {
   position: relative;
-  right: 44px;
+  align-self: flex-end;
+  margin-top: 30px;
+}
+
+#choice_list_wrapper {
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.choice-wrapper {
+  width: 50%;
+  flex: 1 0 50%;
+  display: inline-block;
+}
+
+.form-choice {
+  display: flex;
+  flex-flow: column;
 }

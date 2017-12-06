@@ -12,7 +12,7 @@ def create_poll():
     if request.method == 'GET':
         return render_template("poll_create.html")
     elif request.method == "POST":
-        return ' '.join(request.form.values())
+        return ', '.join(request.form.values())
 
 
 if __name__ == '__main__':
