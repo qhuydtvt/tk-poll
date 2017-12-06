@@ -1,0 +1,36 @@
+body {
+  font-family: 'PT Sans', sans-serif;
+}
+
+#home-wrapper {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bg-green {
+  background-color: #4CAF50 !important;
+}
+
+.bg-orange {
+  background-color: #FF9800 !important;
+}
+
+.text-white {
+  color: white;
+}
+
+.btn {
+  font-size: 1.1rem;
+  padding: 10px;
+  background-color: #CCCCCC;
+  border-radius: 2px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.btn:focus {
+  outline: none;
+}
