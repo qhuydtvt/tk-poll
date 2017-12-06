@@ -26,7 +26,6 @@ $(document).ready(function(){
 
   $('#btn_create_poll').click(function(event){
     if($('#sel_final_pick_count')[0].selectedIndex == 0) {
-      console.log("ABC");
       event.preventDefault();
       alert("You forgot to select final pick");
       return false;
@@ -82,7 +81,7 @@ function updateCreateWrapper() {
 function updateFinalPick() {
   $('#sel_final_pick_count').empty();
   $('#sel_final_pick_count').append($("<option>-- Final pick --</option>"));
-  for(var selection = 1; selection < currentChoiceCount - 1; selection++) {
+  for(var selection = 1; selection < $('.choice-wrapper').length - 1; selection++) {
     $('#sel_final_pick_count').append(`<option>${selection}</option>`);
   }
 }

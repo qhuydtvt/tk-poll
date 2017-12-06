@@ -172,3 +172,8 @@ ol {
   display: inline-block;
   height: 2.2rem;
 }
+
+.move-wrapper {
+  display: inline-block;
+  align-self: flex-end;
+}
