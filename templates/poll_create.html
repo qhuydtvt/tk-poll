@@ -1,6 +1,32 @@
 {% extends 'base.html' %}
 {% block page_content %}
-<div class="center-wrapper">
-
+<div id="choice-list-wrapper" class="center-wrapper">
+  <div class="right-align-wrapper">
+    <div class="">
+      <input class="input-choice" type="text" name="" value="" placeholder="Enter new option">
+      <span class="text-green choice-action">
+        <i class="fa fa-plus pointer" aria-hidden="true"></i>
+      </span>
+    </div>
+    <form class="" action="" method="post">
+      <ol>
+        <li class="item-choice">
+          <input class="input-choice" type="text" name="" value="">
+          <span class="text-red choice-action">
+            <i class="fa fa-minus pointer" aria-hidden="true"></i>
+          </span>
+        </li>
+        <li class="item-choice">
+          <div class="">
+            <input class="input-choice" type="text" name="" value="">
+            <span class="text-red choice-action">
+              <i class="fa fa-minus pointer" aria-hidden="true"></i>
+            </span>
+          </div>
+        </li>
+      </ol>
+      <button class="btn bg-blue text-white" id="btn-create-poll" name="button">Create</button>
+    </form>
+  </div>
 </div>
 {% endblock %}

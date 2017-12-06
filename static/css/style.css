@@ -18,8 +18,24 @@ body {
   background-color: #4CAF50 !important;
 }
 
+.bg-blue {
+  background-color: #3F51B5 !important;
+}
+
 .bg-orange {
   background-color: #FF9800 !important;
+}
+
+.bg-red {
+  background-color: #F44336 !important;
+}
+
+.text-red {
+  color: #F44336 !important;
+}
+
+.text-green {
+  color: #4CAF50 !important;
 }
 
 .text-white {
@@ -27,14 +43,64 @@ body {
 }
 
 .btn {
-  font-size: 1.1rem;
-  padding: 10px;
+  font-size: 1rem;
+  padding: 8px;
   background-color: #CCCCCC;
   border-radius: 2px;
   margin: 10px;
   cursor: pointer;
 }
 
-.btn:focus {
-  outline: none;
+
+input {
+  font-size: 1.1rem;
+  padding: 9px;
+}
+
+.input-choice {
+}
+
+ol {
+  font-size: 1.2rem;
+}
+
+#choice-list-wrapper {
+  min-width: 320px;
+}
+
+.choice-action {
+  padding: 8px;
+  margin: 10px;
+  display: inline-block;
+  font-size: 1.2rem;
+  text-align: left;
+}
+
+.choice-action:hover {
+  font-weight: bold;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.right-align-wrapper {
+  text-align: right;
+}
+
+#btn-create-poll {
+  min-width: 70px;
+  padding: 8px;
+  margin: 10px;
+  font-size: 1rem;
+}
+
+#submit-wrapper {
+  width: 100%;
+  font-size: 1rem;
+}
+
+#btn-create-poll {
+  position: relative;
+  right: 44px;
 }
