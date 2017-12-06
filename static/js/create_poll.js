@@ -24,6 +24,15 @@ $(document).ready(function(){
     updatePickCountInput(selectedOption.text);
   });
 
+  $('#btn_create_poll').click(function(event){
+    if($('#sel_final_pick_count')[0].selectedIndex == 0) {
+      console.log("ABC");
+      event.preventDefault();
+      alert("You forgot to select final pick");
+      return false;
+    }
+  });
+
   updateCreateWrapper();
 });
 

@@ -8,10 +8,10 @@
     {% endfor %}
   </div>
   <script>
-    // $(document).ready(function() {
-    //   $(body).data({
-    //     final_pick_count = {{ poll.final_pick_count }};
-    //   });
-    // });
+    $(document).ready(function() {
+      $('body').data({
+        final_pick: {{ poll.final_pick }}
+      });
+    });
   </script>
 {% endblock %}
