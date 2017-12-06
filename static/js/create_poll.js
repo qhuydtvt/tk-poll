@@ -10,13 +10,6 @@ $(document).ready(function(){
   $('#input_new_choice').on('keydown', function(event){
     if (event.keyCode == 13) {
       event.preventDefault();
-      return true;
-    }
-  });
-
-  $('#input_new_choice').on('keyup', function(event){
-    if (event.keyCode == 13) {
-      event.preventDefault();
       var input = $(event.target);
       addNewChoice(input.val());
       input.val('');
@@ -24,7 +17,7 @@ $(document).ready(function(){
     }
   });
 
-
+  updateCreateButton();
 });
 
 function addNewChoice(choice) {
@@ -34,11 +27,23 @@ function addNewChoice(choice) {
       <i class="fa fa-minus text-red choice-action pointer btn-remmove-choice" aria-hidden="true"></i>
     </div>
   `);
+
   newChoice.insertBefore('.choice-wrapper:last');
 
   $('.btn-remmove-choice').click(function(event){
     $(event.target).parent().remove();
+    updateCreateButton();
   });
 
   $('.input-choice:last').focus();
+
+  updateCreateButton();
+}
+
+function updateCreateButton() {
+  if ($('.choice-wrapper').length > 2) {
+    $('#btn-create-poll').show();
+  } else {
+    $('#btn-create-poll').hide();
+  }
 }

@@ -65,17 +65,17 @@ ol {
 }
 
 #choice-list-wrapper {
-  min-width: 320px;
+  min-width: 520px;
 }
 
 .item-choice {
+
 }
 
 .choice-action {
   padding: 8px;
   margin: 10px 10px 10px 2px;
   display: inline-block;
-  font-size: 1.2rem;
   text-align: left;
 }
 
@@ -110,17 +110,15 @@ ol {
 }
 
 #choice_list_wrapper {
-  width: 100%;
+  width: 520px;
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
-  align-items: flex-start;
-  text-align: left;
 }
 
 .choice-wrapper {
-  width: 50%;
   display: flex;
+  align-items: center;
 }
 
 .form-choice {
