@@ -23,16 +23,22 @@ $(document).ready(function(){
       return false;
     }
   });
+
+
 });
 
 function addNewChoice(choice) {
-  $(`
+  var newChoice = $(`
     <div class="choice-wrapper">
       <input class="input-choice" type="text" name="choice_${currentChoiceIndex++}" value="${choice}">
-      <span class="text-red choice-action">
-        <i class="fa fa-minus pointer" aria-hidden="true"></i>
-      </span>
+      <i class="fa fa-minus text-red choice-action pointer btn-remmove-choice" aria-hidden="true"></i>
     </div>
-  `).insertBefore('.choice-wrapper:last');
+  `);
+  newChoice.insertBefore('.choice-wrapper:last');
+
+  $('.btn-remmove-choice').click(function(event){
+    $(event.target).parent().remove();
+  });
+
   $('.input-choice:last').focus();
 }
