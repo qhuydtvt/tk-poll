@@ -65,7 +65,7 @@ ol {
 }
 
 #choice-list-wrapper {
-  min-width: 520px;
+  min-width: 560px;
 }
 
 .item-choice {
@@ -110,7 +110,7 @@ ol {
 }
 
 #choice_list_wrapper {
-  width: 520px;
+  width: 540px;
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
@@ -119,9 +119,18 @@ ol {
 .choice-wrapper {
   display: flex;
   align-items: center;
+  padding-right: 10px;
 }
 
 .form-choice {
   display: flex;
   flex-flow: column;
+}
+
+#input_new_choice {
+  border: 0.5px #cccccc00 solid;
+}
+
+#input_new_choice:focus {
+  outline: none;
 }

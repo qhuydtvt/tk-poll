@@ -1,4 +1,4 @@
-var currentChoiceIndex = 0;
+var currentChoiceIndex = 1;
 
 $(document).ready(function(){
   $('#btn_add_choice').click(function(event) {
@@ -23,7 +23,7 @@ $(document).ready(function(){
 function addNewChoice(choice) {
   var newChoice = $(`
     <div class="choice-wrapper">
-      <input class="input-choice" type="text" name="choice_${currentChoiceIndex++}" value="${choice}">
+      <input class="input-choice input-empty-clear" type="text" name="choice_${currentChoiceIndex++}" value="${choice}">
       <i class="fa fa-minus text-red choice-action pointer btn-remmove-choice" aria-hidden="true"></i>
     </div>
   `);
@@ -33,6 +33,13 @@ function addNewChoice(choice) {
   $('.btn-remmove-choice').click(function(event){
     $(event.target).parent().remove();
     updateCreateButton();
+  });
+
+  $('.input-empty-clear').focusout(function(event){
+    var input = $(event.target);
+    if (input.val() == "") {
+      input.parent().remove();
+    }
   });
 
   $('.input-choice:last').focus();
