@@ -1,17 +1,27 @@
 {% extends 'base.html' %}
 {% block page_content %}
   <div class="center-wrapper">
-    <div id="choice_list">
-      {% for choice in poll.choices %}
-        <div class="choice">
-          <span>{{ choice.value }}</span>
-          <div class="move-wrapper">
-            <i class="fa fa-angle-up up pointer" aria-hidden="true"></i>
-            <i class="fa fa-angle-down down pointer" aria-hidden="true"></i>
+    <div id="poll_wrapper">
+      <div id="choice_list">
+        {% for choice in poll.choices %}
+          <div class="choice">
+            <span>{{ choice.value }}</span>
+            <div class="move-wrapper">
+              <i class="fa fa-angle-up up pointer" aria-hidden="true"></i>
+              <i class="fa fa-angle-down down pointer" aria-hidden="true"></i>
+            </div>
           </div>
-        </div>
-      {% endfor %}
+        {% endfor %}
+      </div>
+      <div id="choice_plus_list">
+        {% for i in range(poll.final_pick) %}
+          <div class="choice-plus">
+            <span>+{{ poll.final_pick - i }}</span>
+          </div>
+        {% endfor %}
+      </div>
     </div>
+
     <div id="vote_wrapper">
       <input id="input_voter_name" placeholder="Full name" type="text" name="" value="">
       <button class="btn bg-blue text-white" type="button" name="button">Vote</button>
@@ -20,17 +30,11 @@
   <script type="text/javascript" src="../static/js/poll.js">
   </script>
   <style>
-    .choice {
-      color: #00000057;
-      border: 0.7px #CCCCCC8a solid;
-    }
-
-    {% set color_list = ['#00695C', '#9575CD', '#FF9800', '#607D8B', '#78909C'] %}
+    {% set color_list = ['#00695C', '#FF9800', '#9575CD', '#8D6E63', '#78909C'] %}
     {% set text_color = '#FFFFFFDE' %}
     {% for i in range(poll.final_pick) %}
-      .choice:nth-child({{ i + 1 }}) {
-        background-color: {{ color_list[i] }};
-        color: {{ text_color }};
+      .choice-plus:nth-child({{ i + 1 }}) span {
+        color: {{ color_list[i] }};
         border: none;
       }
     {% endfor %}

@@ -46,7 +46,7 @@ body {
   font-size: 1rem;
   padding: 10px;
   background-color: #CCCCCC;
-  border-radius: 2px;
+  border-radius: 3px;
   cursor: pointer;
 }
 
@@ -54,6 +54,8 @@ body {
 input {
   font-size: 1rem;
   padding: 9px;
+  border: 0.7px #80808087 solid;
+  border-radius: 3px;
 }
 
 select {
@@ -159,8 +161,7 @@ ol {
   display: none;
 }
 
-.choice {
-  width: 300px;
+.choice, .choice-plus {
   padding: 8px;
   margin-bottom: 8px;
   border-radius: 2px;
@@ -168,9 +169,19 @@ ol {
   justify-content: space-between;
 }
 
-.choice span {
+.choice {
+  width: 300px;
+  color: #000000b0;
+  border: 0.7px #CCCCCC8a solid;
+}
+
+.choice span, .choice-plus span {
   display: inline-block;
   height: 2.2rem;
+}
+
+.choice-plus span {
+  font-weight: bold;
 }
 
 .choice:first-child .up {
@@ -203,4 +214,13 @@ ol {
 
 #input_voter_name {
   margin-right: 10px;
+  flex-grow: 1;
+}
+
+#poll_wrapper {
+  display: flex;
+}
+
+#choice_plus {
+  width: 50px;
 }
