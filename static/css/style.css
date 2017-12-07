@@ -44,16 +44,15 @@ body {
 
 .btn {
   font-size: 1rem;
-  padding: 8px;
+  padding: 10px;
   background-color: #CCCCCC;
   border-radius: 2px;
-  margin: 10px;
   cursor: pointer;
 }
 
 
 input {
-  font-size: 1.1rem;
+  font-size: 1rem;
   padding: 9px;
 }
 
@@ -166,6 +165,7 @@ ol {
   margin-bottom: 8px;
   border-radius: 2px;
   display: flex;
+  justify-content: space-between;
 }
 
 .choice span {
@@ -173,7 +173,34 @@ ol {
   height: 2.2rem;
 }
 
+.choice:first-child .up {
+  display: none;
+}
+
+.choice:first-child .down {
+  margin-top: auto;
+}
+
+.choice:last-child .down {
+  display: none;
+}
+
 .move-wrapper {
   display: inline-block;
-  align-self: flex-end;
+  /* align-self: flex-end; */
+  /* height: 100%; */
+  display: flex;
+  flex-flow: column;
+  /* align-items: center; */
+  /* justify-content: space-between; */
+}
+
+#vote_wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+#input_voter_name {
+  margin-right: 10px;
 }
