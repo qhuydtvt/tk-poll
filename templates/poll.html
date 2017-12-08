@@ -5,7 +5,7 @@
       <div id="choice_list">
         {% for choice in poll.choices %}
           <div class="choice">
-            <span>{{ choice.value }}</span>
+            <span id="{{ choice.id }}">{{ choice.value }}</span>
             <div class="move-wrapper">
               <i class="fa fa-angle-up up pointer" aria-hidden="true"></i>
               <i class="fa fa-angle-down down pointer" aria-hidden="true"></i>
@@ -21,13 +21,17 @@
         {% endfor %}
       </div>
     </div>
-
+    <form id="poll_form" action="" method="post">
     <div id="vote_wrapper">
-      <input id="input_voter_name" placeholder="Full name" type="text" name="" value="">
-      <button class="btn bg-blue text-white" type="button" name="button">Vote</button>
+      <input id="input_voter_name" placeholder="Full name" type="text" name="voter_name" value="">
+      <button class="btn bg-blue text-white" type="submit">Vote</button>
     </div>
+    </form>
   </div>
   <script type="text/javascript" src="../static/js/poll.js">
+  </script>
+  <script type="text/javascript">
+    poll_init({{ poll.final_pick }});
   </script>
   <style>
     {% set color_list = ['#00695C', '#FF9800', '#9575CD', '#8D6E63', '#78909C'] %}

@@ -2,6 +2,7 @@ from flask import *
 from mlab import *
 from models.poll import *
 from models.choice import *
+from models.vote import *
 from mlab import *
 
 mlab_connect()
@@ -31,16 +32,25 @@ def create_poll():
         return redirect(url_for('poll', poll_code=poll.code))
 
 
-@app.route('/poll/<poll_code>')
+@app.route('/poll/<poll_code>', methods=['GET', 'POST'])
 def poll(poll_code):
     poll_code = poll_code.upper()
     poll = Poll.objects(code=poll_code).first()
-    if poll is None:
-        return "<h2>Poll not found</h2>"
+    if request.method == 'GET':
+        if poll is None:
+            return "<h2>Poll not found</h2>"
+        else:
+            poll.is_owner = session.get('owned_poll_code', None) == poll_code
+            poll.choices = Choice.objects(poll=poll)
+            return render_template('poll.html', poll=poll)
     else:
-        poll.is_owner = session.get('owned_poll_code', None) == poll_code
-        poll.choices = Choice.objects(poll=poll)
-        return render_template('poll.html', poll=poll)
+        form = request.form
+        voter_name = form['voter_name']
+        vote_points = [VotePoint.create(key, value) for key,value in form.items() if key != 'voter_name']
+        vote = Vote(vote_points=vote_points, voter_name=voter_name)
+        vote.save()
+
+        return 'Ahihi'
 
 
 if __name__ == '__main__':
