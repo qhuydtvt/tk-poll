@@ -40,6 +40,12 @@ def poll(poll_code):
         if poll is None:
             return "<h2>Poll not found</h2>"
         else:
+            if 'voter_code' in session:
+                voter_code = session['voter_code']
+                vote = Vote.objects(voter_code=voter_code).first()
+                if vote is not None and vote.poll.code == poll_code:
+                    return redirect(url_for('vote', voter_code=voter_code))
+
             poll.is_owner = session.get('owned_poll_code', None) == poll_code
             poll.choices = Choice.objects(poll=poll)
             return render_template('poll.html', poll=poll)
@@ -47,10 +53,21 @@ def poll(poll_code):
         form = request.form
         voter_name = form['voter_name']
         vote_points = [VotePoint.create(key, value) for key,value in form.items() if key != 'voter_name']
-        vote = Vote(vote_points=vote_points, voter_name=voter_name)
+        vote = Vote.create(poll=poll, vote_points=vote_points, voter_name=voter_name)
         vote.save()
+        session['voter_code'] = vote.voter_code
+        return redirect(url_for('vote', voter_code=vote.voter_code))
 
-        return 'Ahihi'
+
+@app.route('/vote/<voter_code>')
+def vote(voter_code):
+    voter_code = voter_code.upper()
+    vote = Vote.objects(voter_code=voter_code).first()
+    if vote is not None:
+        return "You already voted"
+    else:
+        return "Vote not found"
+
 
 
 if __name__ == '__main__':
