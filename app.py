@@ -59,12 +59,17 @@ def poll(poll_code):
         return redirect(url_for('vote', voter_code=vote.voter_code))
 
 
-@app.route('/vote/<voter_code>')
+@app.route('/vote/<voter_code>', methods=['GET', 'POST'])
 def vote(voter_code):
     voter_code = voter_code.upper()
     vote = Vote.objects(voter_code=voter_code).first()
     if vote is not None:
-        return "You already voted"
+        if request.method == 'GET':
+            return render_template('vote.html', vote=vote)
+        else:
+            poll_code = vote.poll.code
+            vote.delete()
+            return redirect(url_for('poll', poll_code=poll_code))
     else:
         return "Vote not found"
 

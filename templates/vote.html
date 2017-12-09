@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block page_content %}
+  <div class="center-wrapper">
+    <div class="d-flex">
+      <div class="">
+        {% for vote_point in vote.vote_points %}
+        <div class="vote-choice">
+          <span>{{ vote_point.choice.value }}</span>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="">
+        {% for vote_point in vote.vote_points %}
+        <div class="vote-choice-plus">
+          <span>+{{ vote_point.point }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <form class="d-flex justify-content-end mt-2" method="post">
+      <button class="btn bg-red text-white" type="submit">Re-vote</button>
+    </form>
+  </div>
+  <style>
+  {% set color_list = ['#00695C', '#FF9800', '#9575CD', '#8D6E63', '#78909C'] %}
+  {% for i in range(vote.vote_points|length) %}
+    .vote-choice-plus:nth-child({{ i + 1 }}) span {
+      color: {{ color_list[i] }};
+      border: none;
+    }
+  {% endfor %}
+  </style>
+{% endblock %}

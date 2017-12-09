@@ -2,6 +2,18 @@ body {
   font-family: 'PT Sans', sans-serif;
 }
 
+.d-flex {
+  display: flex;
+}
+
+.mt-2 {
+  margin-top: 20px;
+}
+
+.justify-content-end {
+  justify-content: flex-end;
+}
+
 .d-none, .choice-id {
   display: none;
 }
@@ -165,7 +177,7 @@ ol {
   display: none;
 }
 
-.choice, .choice-plus {
+.choice, .choice-plus, .vote-choice, .vote-choice-plus {
   padding: 8px;
   margin-bottom: 8px;
   border-radius: 2px;
@@ -173,18 +185,18 @@ ol {
   justify-content: space-between;
 }
 
-.choice {
+.choice, .vote-choice {
   width: 300px;
   color: #000000b0;
   border: 0.7px #CCCCCC8a solid;
 }
 
-.choice span, .choice-plus span {
+.choice span, .choice-plus span, .vote-choice span, .vote-choice-plus span {
   display: inline-block;
   height: 2.2rem;
 }
 
-.choice-plus span {
+.choice-plus span, .vote-choice-plus span {
   font-weight: bold;
 }
 
