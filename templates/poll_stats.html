@@ -1,7 +1,7 @@
 {%  extends 'base.html' %}
 
 {% block page_content %}
-<h1>Votes: <span id="vote_count">{{ poll.votes | length }}</span></h1>
+<h1>Votes: <span id="votes_count">{{ poll.votes | length }}</span></h1>
 
 <script type="text/javascript">
   var poll_code = "{{ poll.code }}";

@@ -1,6 +1,8 @@
 from flask import *
 from flask_socketio import SocketIO, emit
 from mlab import *
+
+from utils.code import code_6
 from models.poll import *
 from models.choice import *
 from models.vote import *
@@ -16,7 +18,6 @@ socketio = SocketIO(app)
 @app.route('/')
 def index():
     return render_template("index.html")
-
 
 @app.route('/create-poll', methods=['GET', 'POST'])
 def create_poll():
@@ -35,72 +36,88 @@ def create_poll():
         return redirect(url_for('poll', poll_code=poll.code))
 
 
+def get_voter_code():
+    voter_code = session.get('voter_code', None)
+    if voter_code is None:
+        voter_code = code_6()
+        session['voter_code'] = voter_code
+    return voter_code
+
+def is_poll_owner(poll):
+    owned_poll_code = session.get('owned_poll_code', None)
+    return owned_poll_code == poll.code
+
 @app.route('/poll/<poll_code>', methods=['GET', 'POST'])
 def poll(poll_code):
-    poll_code = poll_code.upper()
-    poll = Poll.objects(code=poll_code).first()
-    if request.method == 'GET':
-        if poll is None:
-            return "<h2>Poll not found</h2>"
-        else:
-            if session.get("owned_poll_code", None) == poll.code:
-                ## is Owner
-                return redirect(url_for("poll_stats", poll_code=poll.code))
-            else:
-                voter_code = session.get('voter_code', None)
-                vote =  Vote.find_by_voter_code(voter_code)
-                # User already voted?
-                if vote is not None and vote.poll.code == poll_code:
-                    ## Yes, then return their vote status
-                    return redirect(url_for('vote', voter_code=voter_code))
-                else:
-                    ## No, show them the poll to vote
-                    poll.choices = Choice.objects(poll=poll)
-                    return render_template('poll.html', poll=poll)
-    else:
-        form = request.form
-        voter_name = form['voter_name']
-        vote_points = [VotePoint.create(key, value) for key,value in form.items() if key != 'voter_name']
-        vote = Vote.create(poll=poll, vote_points=vote_points, voter_name=voter_name)
-        vote.save()
-        emit(poll_code, {
-            "votes_count": Vote.objects(poll=poll).count()
-        })
-        session['voter_code'] = vote.voter_code
-        return redirect(url_for('vote', voter_code=vote.voter_code))
-
-
-@app.route('/vote/<voter_code>', methods=['GET', 'POST'])
-def vote(voter_code):
-    voter_code = voter_code.upper()
-    vote = Vote.objects(voter_code=voter_code).first()
-    if vote is not None:
-        if request.method == 'GET':
-            # Does user own this poll
-            if session.get('owned_poll_code', None) == vote.code:
-                # Yes, just show them the stats
-                return render_template('vote_stats.html')
-            else:
-                # No, show them what they have voted
-                return render_template('vote.html', vote=vote)
-        else:
-            # POST request to delete poll
-            poll_code = vote.poll.code
-            vote.delete()
-            return redirect(url_for('poll', poll_code=poll_code))
-    else:
-        return "<h2>Poll not found</h2>"
-
-
-@app.route("/poll_stats/<poll_code>")
-def poll_stats(poll_code):
-    poll = Poll.with_code(poll_code)
+    poll = Poll.objects(code=poll_code.upper()).first()
     if poll is None:
         return "<h2>Poll not found</h2>"
-    else:
-        votes = Vote.with_poll(poll)
-        poll.votes = votes
+    elif is_poll_owner(poll):
+        return redirect(url_for("poll_stats", poll_code=poll.code))
+    elif request.method == 'GET':
+            print(poll.code, get_voter_code())
+            vote = Vote.find(poll, get_voter_code())
+            print(vote)
+            # User already voted?
+            if vote is not None:
+                ## Yes, then return their vote status
+                return redirect(url_for('vote', vote_id=vote.id))
+            else:
+                ## No, show them the poll to vote
+                poll.choices = Choice.objects(poll=poll)
+                return render_template('poll.html', poll=poll)
+    elif request.method == "POST":
+        form = request.form
+        voter_code = get_voter_code()
+        voter_name = form['voter_name']
+        def criteria(vote_point):
+            return -vote_point.point
+        vote_points = sorted([VotePoint.create(key, value)
+                       for key, value in form.items()
+                       if key != 'voter_name'],
+                       key=criteria)
+
+        vote = Vote.create(poll, vote_points, voter_name, voter_code)
+        vote.save()
+        socketio.emit(poll_code, {
+            "votes_count": Vote.objects(poll=poll).count()
+        })
+        return redirect(url_for('vote', vote_id=vote.id))
+
+
+@app.route('/vote/<vote_id>', methods=['GET', 'POST'])
+def vote(vote_id):
+    vote = Vote.objects().with_id(vote_id.upper())
+    if vote is None or vote.voter_code != get_voter_code():
+        return "<h2>Vote not found or you're not owner of this code</h2>"
+    elif request.method == 'GET':
+        # Does user own this poll
+        if is_poll_owner(vote.poll):
+            # Yes, just show them the stats
+            return redirect(url_for('poll_stats', poll_code=vote.poll.code))
+        else:
+            # No, show them what they have voted
+            return render_template('vote.html', vote=vote)
+    elif request.method == 'POST':
+        # POST request to delete poll
+        poll_code = vote.poll.code
+        vote.delete()
+        socketio.emit(poll_code, {
+            "votes_count": Vote.objects(poll=vote.poll).count()
+        })
+        return redirect(url_for('poll', poll_code=poll_code))
+
+
+@app.route("/poll_stats/<poll_code>", methods=['GET', 'POST'])
+def poll_stats(poll_code):
+    poll = Poll.with_code(poll_code)
+    if not is_poll_owner(poll):
+        return "<h2>Poll not found or you are not the owner of this poll</h2>"
+    elif request.method == 'GET':
+        poll.votes = Vote.with_poll(poll)
         return render_template("poll_stats.html", poll=poll)
+    elif request.method == 'POST':
+        return "<h1>Showing results</h1>"
 
 
 if __name__ == '__main__':

@@ -1,3 +1,8 @@
+var io = io();
 $(document).ready(function (){
-  var socket = new SocketIO();
+  io.on(poll_code, function(data){
+    console.log(data);
+    var votes_count = data.votes_count;
+    $('#votes_count').text(votes_count);
+  });
 });

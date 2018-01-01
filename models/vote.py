@@ -22,18 +22,24 @@ class Vote(Document):
     voter_code = StringField(max_length=6)
 
     @classmethod
-    def create(cls, poll, vote_points, voter_name):
+    def create(cls, poll, vote_points, voter_name, voter_code):
         import string
         alphabet = string.ascii_uppercase
-        voter_code = ShortUUID(alphabet=alphabet).random(length=6)
+        if voter_code is None:
+            voter_code = ShortUUID(alphabet=alphabet).random(length=6)
         return Vote(poll=poll, vote_points=vote_points, voter_name=voter_name, voter_code=voter_code)
 
-        @classmethod
-        def find_by_voter_code(cls, voter_code):
-            if voter_code == None:
-                return None
-            else:
-                return Vote.objects(voter_code=voter_code).first()
+    # @classmethod
+    # def find_by_voter_code(cls, voter_code):
+    #     if voter_code == None:
+    #         return None
+    #     else:
+    #         return Vote.objects(voter_code=voter_code).first()
+
+    @classmethod
+    def find(cls, poll, voter_code):
+        return Vote.objects(poll=poll, voter_code=voter_code).first()
+
 
     @classmethod
     def with_poll(clas, poll):
