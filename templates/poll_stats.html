@@ -3,6 +3,18 @@
 {% block page_content %}
 <h1>Votes: <span id="votes_count">{{ poll.votes | length }}</span></h1>
 
+<form class="" method="post">
+  <input id="btn_results" type="submit" value="Results" class="btn bg-blue text-white">
+</form>
+
+<style>
+    {% if poll.votes | length == 0 %}
+      #btn_results {
+        display: none;
+      }
+    {% endif %}
+</style>
+
 <script type="text/javascript">
   var poll_code = "{{ poll.code }}";
 </script>

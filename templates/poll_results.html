@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+  {% set votes = poll.votes %}
+  {% set choices = poll.choices %}
+  {% set results = poll.results %}
+  <div class="center-wrapper">
+    <div class="choice-results">
+      {% for result in results %}
+        <div class="choice-result" id="choice-result-{{ loop.index }}">
+          <div class="w-30">
+            <span class="choice-result-value">{{ result.value }}</span>
+          </div>
+
+          <div class="choice-result-tray w-60">
+            <div class="choice-result-bar">
+              <span class="text-white">{{ result.total_point }}</span>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <style>
+    {% for result in results %}
+    .choice-result:nth-child({{ loop.index }}) .choice-result-bar {
+      animation: expand_{{ loop.index }} 5s forwards 1s 1;
+      background-color: {{ color_list[loop.index - 1] }};
+      display: flex;
+    }
+
+    .choice-result:nth-child({{ loop.index }}) .choice-result-value {
+      color: {{ color_list[loop.index - 1] }};
+    }
+
+    .choice-result-tray:nth-child({{ loop.index }}) span {
+      opacity: 0;
+      animation: fade_in 1s ease-out 2s 1 forwards;
+      text-align: right;
+      margin-right: 0.4rem;
+      line-height: 2rem;
+      font-size: 1.3rem;
+    }
+
+    @keyframes expand_{{ loop.index }} {
+      from {
+        width: 0%;
+      }
+
+      to {
+        width: {{ result.total_point / poll.max_point * 100 }}%;
+      }
+    }
+    {% endfor %}
+
+    #btn-select-teams {
+      opacity: 0;
+      animation: fade_in 1s ease-out 2s 1 forwards;
+    }
+
+    @keyframes fade_in {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+
+  <script type="text/javascript">
+    setTimeout(function() {
+      var sound = new Audio('/static/sounds/victory.mp3');
+      sound.play();
+    }, 0);
+  </script>
+{% endblock %}

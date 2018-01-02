@@ -18,6 +18,10 @@ body {
   display: none;
 }
 
+.f-1rem {
+  font-size: 1rem;
+}
+
 .center-wrapper {
   text-align: center;
   position: absolute;
@@ -191,7 +195,8 @@ ol {
   border: 0.7px #CCCCCC8a solid;
 }
 
-.choice span, .choice-plus span, .vote-choice span, .vote-choice-plus span {
+.choice span, .choice-plus span, .vote-choice span, .vote-choice-plus span,
+.choice-result span {
   display: inline-block;
   height: 2.2rem;
 }
@@ -239,4 +244,53 @@ ol {
 
 #choice_plus {
   width: 50px;
+}
+
+.w-30 {
+  width: 30%;
+}
+
+.w-60 {
+  width: 60%;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.d-inline-block {
+  display: inline-block;
+}
+
+.choice-results {
+  min-width: 800px;
+}
+
+.choice-result {
+  display: flex;
+  text-align: left;
+  word-wrap: break-word;
+  margin-top: 20px;
+}
+
+.choice-result span {
+  width: 100%;
+  font-size: 1.3rem;
+}
+
+.choice-result-bar {
+  height: 2rem;
+  background: #d27676;
+  margin-left: 10px;
+  border-radius: 2px;
+  width: 0%;
+}
+
+.choice-result-tray {
+  display: flex;
+  align-items: center;
 }

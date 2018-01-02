@@ -1,5 +1,5 @@
 from flask import *
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO
 from mlab import *
 
 from utils.code import code_6
@@ -46,6 +46,9 @@ def get_voter_code():
 def is_poll_owner(poll):
     owned_poll_code = session.get('owned_poll_code', None)
     return owned_poll_code == poll.code
+
+def get_owned_poll_code():
+    return session.get('owned_poll_code', None)
 
 @app.route('/poll/<poll_code>', methods=['GET', 'POST'])
 def poll(poll_code):
@@ -108,16 +111,35 @@ def vote(vote_id):
         return redirect(url_for('poll', poll_code=poll_code))
 
 
+@app.route("/poll_stats")
+def poll_stats_default():
+    poll_code = get_owned_poll_code()
+    if poll_code is None:
+        return "<h2>You are currently not owning any poll</h2>"
+    else:
+        return redirect(url_for("poll_stats", poll_code=poll_code))
+
+
 @app.route("/poll_stats/<poll_code>", methods=['GET', 'POST'])
 def poll_stats(poll_code):
     poll = Poll.with_code(poll_code)
+    poll.votes = Vote.with_poll(poll)
     if not is_poll_owner(poll):
         return "<h2>Poll not found or you are not the owner of this poll</h2>"
     elif request.method == 'GET':
-        poll.votes = Vote.with_poll(poll)
         return render_template("poll_stats.html", poll=poll)
     elif request.method == 'POST':
-        return "<h1>Showing results</h1>"
+        poll.choices = Choice.with_poll(poll)
+        poll.results = [{
+                            "value": choice.value,
+                            "total_point": sum([vote.sum_points(choice) for vote in poll.votes])
+                        }
+                        for choice in poll.choices]
+        def criteria(result):
+            return result['total_point']
+        poll.max_point = max(poll.results, key=criteria)['total_point']
+
+        return render_template("poll_results.html", poll=poll)
 
 
 if __name__ == '__main__':

@@ -29,6 +29,8 @@ class Vote(Document):
             voter_code = ShortUUID(alphabet=alphabet).random(length=6)
         return Vote(poll=poll, vote_points=vote_points, voter_name=voter_name, voter_code=voter_code)
 
+    def sum_points(self, choice):
+        return sum([vote_point.point for vote_point in self.vote_points if vote_point.choice.id == choice.id])
     # @classmethod
     # def find_by_voter_code(cls, voter_code):
     #     if voter_code == None:
