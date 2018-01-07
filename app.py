@@ -135,6 +135,7 @@ def poll_stats(poll_code):
                             "total_point": sum([vote.sum_points(choice) for vote in poll.votes])
                         }
                         for choice in poll.choices]
+        poll.final_list = poll.results[0: poll.final_pick]
         def criteria(result):
             return result['total_point']
         poll.max_point = max(poll.results, key=criteria)['total_point']

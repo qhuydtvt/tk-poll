@@ -294,3 +294,21 @@ ol {
   display: flex;
   align-items: center;
 }
+
+.text-align-right {
+  text-align: right;
+}
+
+.voter-name {
+  text-align: right;
+  font-size: 1.3rem;
+}
+
+.vote {
+  display: flex;
+}
+
+.vote-points {
+  margin-left: 10px;
+  text-align: left;
+}

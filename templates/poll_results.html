@@ -31,6 +31,8 @@
 
     .choice-result:nth-child({{ loop.index }}) .choice-result-value {
       color: {{ color_list[loop.index - 1] }};
+      text-align: right;
+      line-height: 2.2rem;
     }
 
     .choice-result-tray:nth-child({{ loop.index }}) span {
