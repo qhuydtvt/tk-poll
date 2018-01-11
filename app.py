@@ -123,7 +123,7 @@ def poll_stats_default():
 @app.route("/poll_stats/<poll_code>", methods=['GET', 'POST'])
 def poll_stats(poll_code):
     poll = Poll.with_code(poll_code)
-    poll.votes = Vote.with_poll(poll)
+    poll.votes = [vote for vote in Vote.with_poll(poll)]
     if not is_poll_owner(poll):
         return "<h2>Poll not found or you are not the owner of this poll</h2>"
     elif request.method == 'GET':
@@ -135,6 +135,11 @@ def poll_stats(poll_code):
                             "total_point": sum([vote.sum_points(choice) for vote in poll.votes])
                         }
                         for choice in poll.choices]
+
+        for vote in (poll.votes):
+            vote.mapped_points = [vote.sum_points(choice) for choice in poll.choices]
+            print(vote.mapped_points)
+
         poll.final_list = poll.results[0: poll.final_pick]
         def criteria(result):
             return result['total_point']

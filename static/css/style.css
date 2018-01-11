@@ -6,8 +6,16 @@ body {
   display: flex;
 }
 
+.align-items-center {
+  align-items: center;
+}
+
 .mt-2 {
   margin-top: 20px;
+}
+
+.ml-2 {
+  margin-left: 20px;
 }
 
 .justify-content-end {
@@ -199,6 +207,7 @@ ol {
 .choice-result span {
   display: inline-block;
   height: 2.2rem;
+  line-height: 2.2rem;
 }
 
 .choice-plus span, .vote-choice-plus span {
@@ -246,6 +255,18 @@ ol {
   width: 50px;
 }
 
+.h-100 {
+  height: 100%;
+}
+
+.w-10 {
+  width: 10%;
+}
+
+.w-20 {
+  width: 20%;
+}
+
 .w-30 {
   width: 30%;
 }
@@ -260,6 +281,10 @@ ol {
 
 .d-flex {
   display: flex;
+}
+
+.d-none {
+  display: none;
 }
 
 .d-inline-block {
@@ -295,8 +320,20 @@ ol {
   align-items: center;
 }
 
+.font-22 {
+  font-size: 2.2rem;
+}
+
+.font-13 {
+  font-size: 1.3rem;
+}
+
 .text-align-right {
-  text-align: right;
+  text-align: right !important;
+}
+
+.text-align-left {
+  text-align: left !important;
 }
 
 .voter-name {
@@ -311,4 +348,110 @@ ol {
 .vote-points {
   margin-left: 10px;
   text-align: left;
+}
+
+@keyframes team_list_expand {
+  from {
+    width: 0px;
+  }
+
+  to {
+    width: 10%;
+    min-height: 60px;
+    margin-left: 10px;
+  }
+}
+
+.team-list {
+  width: 0px;
+}
+
+.team-list.show {
+  animation: team_list_expand 0.5s ease-out 1s 1 forwards;
+}
+
+.choice-result.fade-out {
+  animation: fade_out 1s forwards 0s 1;
+}
+
+.choice-result-value {
+  cursor: pointer;
+}
+
+.choice-result-tray.hidden {
+  animation: fade_out 0.5s forwards 0s 1;
+}
+
+.choice-result.height-shrink {
+  animation: height_shrink 1s forwards 0s 1, fade_out 0.5s forwards 0s 1;
+}
+
+.choice-result-tray.shrink {
+  animation: shrink 0.5s ease-out 0s 1 forwards;
+}
+
+.voter-name, .vote-point {
+  opacity: 0;
+  display: flex;
+}
+
+.vote-point {
+  align-items: center;
+}
+
+.team-list {
+  border-radius: 6px;
+  display: none;
+}
+
+.voter-name.fade-in, .vote-point.fade-in {
+  animation: fade_in 0.5s ease-out 0.6s 1 forwards;
+  cursor: pointer;
+}
+
+.team-list.show {
+  display: flex;
+  min-height: 50px;
+  margin: 5px 5px 0px 5px;
+}
+
+#btn-select-teams {
+  opacity: 0;
+  animation: fade_in 1s ease-out 2s 1 forwards;
+}
+
+@keyframes fade_in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade_out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes shrink {
+  to {
+    width: 0px;
+  }
+}
+
+@keyframes height_shrink {
+  from {
+    height: 100%;
+  }
+
+  to {
+    height: 0px;
+  }
 }

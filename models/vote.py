@@ -31,6 +31,7 @@ class Vote(Document):
 
     def sum_points(self, choice):
         return sum([vote_point.point for vote_point in self.vote_points if vote_point.choice.id == choice.id])
+    
     # @classmethod
     # def find_by_voter_code(cls, voter_code):
     #     if voter_code == None:

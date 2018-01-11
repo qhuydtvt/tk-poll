@@ -1,15 +1,34 @@
 {% extends 'base.html' %}
 
+{% block head %}
+  <link rel="stylesheet" href="../static/css/jquery-ui.css">
+{% endblock %}
+
 {% block page_content %}
   {% set votes = poll.votes %}
   {% set choices = poll.choices %}
   {% set results = poll.results %}
   <div class="center-wrapper">
+    <div class="w-100 d-flex">
+      <div class="w-20"></div>
+      <div class="team-list">
+      </div>
+      {% for vote in votes %}
+        <div class="w-10 ml-2 text-align-left draggable team voter-name" id="voter_name_{{ loop.index }}">
+          <span class="font-13">{{ vote.voter_name }}</span>
+        </div>
+      {% endfor %}
+    </div>
     <div class="choice-results">
       {% for result in results %}
         <div class="choice-result" id="choice-result-{{ loop.index }}">
-          <div class="w-30">
+          <div class="w-20">
             <span class="choice-result-value">{{ result.value }}</span>
+          </div>
+
+          <div class="team-list">
+            <ul class="">
+            </ul>
           </div>
 
           <div class="choice-result-tray w-60">
@@ -17,22 +36,44 @@
               <span class="text-white">{{ result.total_point }}</span>
             </div>
           </div>
+          {% set point_index = loop.index0 %}
+          {% for vote in votes %}
+            <div class="w-10 ml-2 team vote-point vote-point-{{ loop.index }} vote-point">
+              <span>{{ vote.mapped_points[point_index] }}</span>
+            </div>
+          {% endfor %}
         </div>
       {% endfor %}
     </div>
+
+    <button class="btn bg-blue text-white mt-2" id="btn_select_team" name="button">Select team</button>
   </div>
   <style>
     {% for result in results %}
+
     .choice-result:nth-child({{ loop.index }}) .choice-result-bar {
       animation: expand_{{ loop.index }} 5s forwards 1s 1;
       background-color: {{ color_list[loop.index - 1] }};
       display: flex;
     }
 
+    .choice-result:nth-child({{ loop.index }}) .vote-point {
+      color: {{ color_list[loop.index - 1] }};
+    }
+
+
+    .choice-result:nth-child({{ loop.index }}) .choice-result-bar.collapse {
+      animation: collapse_{{ loop.index }} 0.5s forwards 0s 1;
+    }
+
     .choice-result:nth-child({{ loop.index }}) .choice-result-value {
       color: {{ color_list[loop.index - 1] }};
       text-align: right;
       line-height: 2.2rem;
+    }
+
+    .choice-result:nth-child({{ loop.index }}) .team-list {
+      background-color: {{ color_list[loop.index - 1] }};
     }
 
     .choice-result-tray:nth-child({{ loop.index }}) span {
@@ -53,28 +94,22 @@
         width: {{ result.total_point / poll.max_point * 100 }}%;
       }
     }
-    {% endfor %}
 
-    #btn-select-teams {
-      opacity: 0;
-      animation: fade_in 1s ease-out 2s 1 forwards;
-    }
-
-    @keyframes fade_in {
+    @keyframes collapse_{{ loop.index }} {
       from {
-        opacity: 0;
+        width: {{ result.total_point / poll.max_point * 100 }}%;
       }
 
       to {
-        opacity: 1;
+        width: 0%;
       }
     }
+
+    {% endfor %}
+
   </style>
 
-  <script type="text/javascript">
-    setTimeout(function() {
-      var sound = new Audio('/static/sounds/victory.mp3');
-      sound.play();
-    }, 0);
+  <script src="../static/js/jquery-ui.js"></script>
+  <script type="text/javascript" src="../static/js/poll_results.js">
   </script>
 {% endblock %}
