@@ -11,24 +11,20 @@
   <div class="center-wrapper">
     <div class="w-100 d-flex">
       <div class="w-20"></div>
-      <div class="team-list">
-      </div>
       {% for vote in votes %}
-        <div class="w-10 ml-2 text-align-left draggable team voter-name" id="voter_name_{{ loop.index }}">
-          <span class="font-13">{{ vote.voter_name }}</span>
+        <div class="w-10 ml-2 text-align-left team voter-name" >
+          <span class="font-13 draggable" id="voter-name-{{ loop.index }}">{{ vote.voter_name }}</span>
         </div>
       {% endfor %}
     </div>
     <div class="choice-results">
       {% for result in results %}
         <div class="choice-result" id="choice-result-{{ loop.index }}">
-          <div class="w-20">
-            <span class="choice-result-value">{{ result.value }}</span>
-          </div>
+          <div class="w-20 choice-container droppable">
+            <span class="choice-result-value">{{ result.choice_value }}</span>
+            <div class="team-container w-100">
 
-          <div class="team-list">
-            <ul class="">
-            </ul>
+            </div>
           </div>
 
           <div class="choice-result-tray w-60">
@@ -70,19 +66,23 @@
       color: {{ color_list[loop.index - 1] }};
       text-align: right;
       line-height: 2.2rem;
-    }
-
-    .choice-result:nth-child({{ loop.index }}) .team-list {
-      background-color: {{ color_list[loop.index - 1] }};
+      font-size: 1.3rem;
+      width: 100%;
     }
 
     .choice-result-tray:nth-child({{ loop.index }}) span {
       opacity: 0;
+      width: 100%;
       animation: fade_in 1s ease-out 2s 1 forwards;
       text-align: right;
       margin-right: 0.4rem;
       line-height: 2rem;
       font-size: 1.3rem;
+    }
+
+    .choice-result:nth-child({{ loop.index }}) .team-member {
+      background-color: {{ color_list[loop.index - 1] }};
+      color: white;
     }
 
     @keyframes expand_{{ loop.index }} {

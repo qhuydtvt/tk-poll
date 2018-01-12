@@ -131,7 +131,7 @@ def poll_stats(poll_code):
     elif request.method == 'POST':
         poll.choices = Choice.with_poll(poll)
         poll.results = [{
-                            "value": choice.value,
+                            "choice_value": choice.value,
                             "total_point": sum([vote.sum_points(choice) for vote in poll.votes])
                         }
                         for choice in poll.choices]

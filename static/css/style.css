@@ -206,7 +206,7 @@ ol {
 .choice span, .choice-plus span, .vote-choice span, .vote-choice-plus span,
 .choice-result span {
   display: inline-block;
-  height: 2.2rem;
+  min-height: 2.2rem;
   line-height: 2.2rem;
 }
 
@@ -228,12 +228,8 @@ ol {
 
 .move-wrapper {
   display: inline-block;
-  /* align-self: flex-end; */
-  /* height: 100%; */
   display: flex;
   flex-flow: column;
-  /* align-items: center; */
-  /* justify-content: space-between; */
 }
 
 #vote_wrapper {
@@ -302,7 +298,7 @@ ol {
   margin-top: 20px;
 }
 
-.choice-result span {
+.choice-result span:first {
   width: 100%;
   font-size: 1.3rem;
 }
@@ -362,14 +358,6 @@ ol {
   }
 }
 
-.team-list {
-  width: 0px;
-}
-
-.team-list.show {
-  animation: team_list_expand 0.5s ease-out 1s 1 forwards;
-}
-
 .choice-result.fade-out {
   animation: fade_out 1s forwards 0s 1;
 }
@@ -393,15 +381,33 @@ ol {
 .voter-name, .vote-point {
   opacity: 0;
   display: flex;
-}
-
-.vote-point {
   align-items: center;
 }
 
-.team-list {
-  border-radius: 6px;
-  display: none;
+.vote-point.fade-out {
+  animation: fade_out 0.5s ease-in 0s forwards 1;
+}
+
+.team-container {
+  display: flex;
+  flex-flow: row-reverse wrap;
+}
+
+.choice-container {
+  display: flex;
+  flex-flow: column;
+  overflow: hidden;
+}
+
+.team-member {
+  padding-left: 3px;
+  padding-right: 3px;
+  border-radius: 3px;
+  margin: 2px 2px 2px 2px;
+}
+
+.team-member .fa {
+  cursor: pointer;
 }
 
 .voter-name.fade-in, .vote-point.fade-in {
@@ -409,11 +415,15 @@ ol {
   cursor: pointer;
 }
 
-.team-list.show {
+.choice-container {
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 3px;
+  box-sizing: border-box;
   display: flex;
-  min-height: 50px;
-  margin: 5px 5px 0px 5px;
+  align-items: center;
 }
+
 
 #btn-select-teams {
   opacity: 0;
