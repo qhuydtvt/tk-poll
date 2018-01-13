@@ -14,23 +14,26 @@ $(".draggable" ).draggable({
 $(".droppable").droppable({
   drop: function(event, ui) {
     var span = ui.draggable;
-    var votePointClass = span[0].id.replace('voter-name', 'vote-point');
+    var connectedId = span[0].id;
+    var votePointClass = connectedId.replace('voter-name', 'vote-point');
     var name = span.html();
 
     var newSpan = $(`
-      <div class="team-member">
+      <div class="team-member" connected_id="${connectedId}">
         <span>${name}</span>
         <i class="fa fa-times" aria-hidden="true"></i>
       </div>
       `).appendTo($(this).find('.team-container'));
 
     $(`.${votePointClass}`).removeClass('fade-in').addClass('fade-out')
-
+    ui.draggable.css("position", "").css("left", "").css("top", "");
     ui.draggable.hide();
 
-    // var team_container = $(this).find('.team-container');
-    // .clone(true).appendTo(team_container);
-    // ui.draggable.remove();
+    newSpan.find("i").click(function() {
+      ui.draggable.show();
+      newSpan.remove();
+      $(`.${votePointClass}`).removeClass('fade-out').css("opacity", 1);
+    });
   }
 });
 
